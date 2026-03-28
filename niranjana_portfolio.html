@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Niranjana Kannan — Marketing Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fafaf8;--ink:#141414;--red:#bf4a25;--green:#1a5c3a;
+  --gold:#9a7d3a;--muted:#5c5856;--subtle:#8a8785;
+  --line:rgba(20,20,20,0.1);--card:#ffffff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.65;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;height:56px;background:rgba(250,250,248,0.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1rem;color:var(--ink);font-weight:400;white-space:nowrap;text-decoration:none}
+.nav-menu{display:flex;gap:0;list-style:none}
+.nav-menu li a{display:block;padding:0 0.95rem;height:56px;line-height:56px;font-size:11.5px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:2px solid transparent;transition:color 0.18s,border-color 0.18s}
+.nav-menu li a:hover,.nav-menu li a.active{color:var(--red);border-bottom-color:var(--red)}
+
+/* HAMBURGER */
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.nav-hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:all 0.25s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:998;flex-direction:column;padding:0.5rem 0}
+.mobile-menu.open{display:flex}
+.mobile-menu a{padding:0.75rem 2rem;font-size:13px;font-weight:500;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);letter-spacing:0.04em}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--red)}
+
+/* PAGE */
+.page{padding-top:56px}
+
+/* SECTION BASE */
+.sec{padding:4rem 2.5rem}
+.sec-inner{max-width:1040px;margin:0 auto}
+.sec-tag{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:0.55rem;display:flex;align-items:center;gap:8px}
+.sec-tag::before{content:'';width:20px;height:1.5px;background:var(--red);display:inline-block;flex-shrink:0}
+.sec-h{font-family:'Playfair Display',serif;font-size:clamp(1.75rem,3vw,2.5rem);font-weight:700;line-height:1.18;color:var(--ink);margin-bottom:0.5rem}
+.sec-h em{font-style:italic;color:var(--red)}
+.sec-sub{font-size:14px;color:var(--muted);max-width:600px;line-height:1.78;margin-bottom:2rem}
+
+/* HERO */
+#hero{min-height:calc(100vh - 56px);display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.hero-l{padding:3.5rem 2.5rem 3.5rem 2.5rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--line)}
+.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:1rem}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5vw,4.5rem);font-weight:700;line-height:1.06;color:var(--ink);margin-bottom:0.4rem}
+.hero-name em{color:var(--red);font-style:italic}
+.hero-role{font-size:14px;color:var(--muted);margin-bottom:1.8rem;line-height:1.5}
+.hero-story{font-size:14.5px;color:var(--ink);line-height:1.85;margin-bottom:2rem;max-width:480px}
+.hero-story strong{color:var(--red)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:2rem}
+.chip{font-size:11.5px;font-weight:500;padding:5px 13px;border:1px solid var(--line);color:var(--muted);background:var(--card)}
+.chip.hot{border-color:rgba(191,74,37,0.4);color:var(--red);background:rgba(191,74,37,0.06)}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;padding:11px 24px;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;transition:all 0.18s}
+.btn-dark{background:var(--ink);color:var(--bg)}
+.btn-dark:hover{background:var(--red)}
+.btn-line{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--bg)}
+.hero-r{padding:3.5rem 2.5rem;display:flex;flex-direction:column;justify-content:center;gap:9px;background:#f7f5f0}
+.hero-r-label{font-size:10.5px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--subtle);margin-bottom:0.2rem}
+.mcard{background:var(--card);border:1px solid var(--line);padding:1rem 1.4rem;display:flex;gap:1.2rem;align-items:center;transition:box-shadow 0.2s,transform 0.2s;cursor:default}
+.mcard:hover{transform:translateX(4px);box-shadow:-3px 0 0 var(--red)}
+.mnum{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--red);min-width:74px;line-height:1}
+.mlabel{font-size:13px;font-weight:600;color:var(--ink)}
+.msub{font-size:11.5px;color:var(--subtle)}
+
+/* STORY */
+#story{background:var(--ink);color:#f0ede7}
+#story .sec-tag{color:#c8922a}
+#story .sec-tag::before{background:#c8922a}
+#story .sec-h{color:#f0ede7}
+#story .sec-h em{color:#c8922a}
+.story-grid{display:grid;grid-template-columns:1fr 0.75fr;gap:3.5rem;align-items:start}
+.story-body{font-size:14.5px;color:rgba(240,237,231,0.78);line-height:1.9}
+.story-body p{margin-bottom:1.1rem}
+.story-body strong{color:#f0ede7}
+.story-body .hl{color:#c8922a;font-weight:600}
+.story-sidebar{display:flex;flex-direction:column}
+.srow{padding:0.9rem 0;border-bottom:1px solid rgba(240,237,231,0.1)}
+.srow:first-child{border-top:1px solid rgba(240,237,231,0.1)}
+.srow-label{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#c8922a;margin-bottom:4px}
+.srow-val{font-size:13.5px;color:#f0ede7;line-height:1.5}
+.srow-val span{color:rgba(240,237,231,0.42);font-size:12.5px}
+
+/* NUMBERS */
+#numbers{background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-top:0;padding-bottom:0}
+.numbers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+.ncard{background:var(--card);padding:1.8rem 2rem}
+.ncard-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--red);line-height:1;margin-bottom:0.4rem}
+.ncard-label{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.ncard-sub{font-size:12px;color:var(--muted);line-height:1.55}
+
+/* EXPERIENCE */
+#experience{background:var(--bg)}
+.exp-timeline{display:flex;flex-direction:column;gap:0}
+.exp-item{display:grid;grid-template-columns:190px 1fr;gap:2rem;padding:2rem 0;border-top:1px solid var(--line)}
+.exp-item:last-child{border-bottom:1px solid var(--line)}
+.exp-period{font-size:11.5px;font-weight:600;color:var(--red);margin-bottom:4px;letter-spacing:0.02em}
+.exp-co{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--ink);margin-bottom:3px}
+.exp-role{font-size:12px;color:var(--muted);line-height:1.4}
+.exp-story{font-size:13.5px;color:var(--ink);line-height:1.78;margin-bottom:0.9rem}
+.exp-story strong{color:var(--red)}
+.exp-wins{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:0.9rem}
+.win{background:#f3f1eb;border-left:3px solid var(--red);padding:0.55rem 0.8rem}
+.win-num{font-size:13px;font-weight:700;color:var(--red)}
+.win-label{font-size:11.5px;color:var(--muted)}
+.exp-tags{display:flex;flex-wrap:wrap;gap:6px}
+.etag{font-size:11px;font-weight:500;padding:3px 10px;background:#eeecea;color:var(--muted)}
+
+/* CAMPAIGNS */
+#campaigns{background:#f2efe9;border-top:1px solid var(--line)}
+.camp-tabs{display:flex;gap:2px;flex-wrap:wrap;margin-bottom:0}
+.ctab{padding:9px 18px;font-size:12px;font-weight:600;letter-spacing:0.04em;cursor:pointer;border:none;background:#e5e2db;color:var(--muted);transition:all 0.18s;font-family:'Inter',sans-serif}
+.ctab.active,.ctab:hover{background:var(--red);color:#fff}
+.camp-body{background:var(--card);border:1px solid var(--line);margin-top:2px}
+.cpane{display:none;padding:2rem}
+.cpane.active{display:grid;grid-template-columns:1.1fr 0.9fr;gap:2.5rem}
+.cp-brand{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--ink);margin-bottom:3px}
+.cp-meta{font-size:12px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--red);margin-bottom:1rem}
+.cp-story{font-size:13.5px;color:var(--ink);line-height:1.8;margin-bottom:1.2rem}
+.cp-story strong{color:var(--red)}
+.cp-channels{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.4rem}
+.cch{font-size:11px;padding:4px 10px;border:1px solid var(--line);color:var(--muted)}
+.cp-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cmet{background:#f7f5f0;padding:0.85rem 1rem}
+.cmet-n{font-size:1.5rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--red);line-height:1}
+.cmet-l{font-size:11.5px;color:var(--muted);margin-top:2px}
+.cp-approach-label{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--subtle);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--line)}
+.cp-steps{display:flex;flex-direction:column;gap:0}
+.cp-step{display:flex;gap:0.9rem;padding:0.75rem 0;border-bottom:1px solid #f0ede7;align-items:flex-start}
+.cp-step:last-child{border-bottom:none}
+.cp-step-dot{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:5px}
+.cp-step-text{font-size:13px;color:var(--muted);line-height:1.6}
+.cp-step-text strong{color:var(--ink);font-weight:600}
+
+/* JD FIT */
+#fit{background:var(--ink);border-top:1px solid rgba(255,255,255,0.06)}
+#fit .sec-tag{color:#c8922a}
+#fit .sec-tag::before{background:#c8922a}
+#fit .sec-h{color:#f0ede7}
+#fit .sec-h em{color:#c8922a}
+#fit .sec-sub{color:rgba(240,237,231,0.55)}
+.fit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.07)}
+.fcard{background:rgba(255,255,255,0.03);padding:1.6rem 1.8rem;border:1px solid rgba(255,255,255,0.05)}
+.fcard-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.7rem}
+.fcard-title{font-size:13px;font-weight:600;color:#f0ede7}
+.fcard-pct{font-size:14px;font-weight:700;color:#c8922a}
+.fcard-bar{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;margin-bottom:0.8rem}
+.fcard-fill{height:100%;background:var(--green);border-radius:2px;width:0;transition:width 1.2s ease}
+.fcard-body{font-size:12.5px;color:rgba(240,237,231,0.55);line-height:1.7}
+.fcard-body strong{color:rgba(240,237,231,0.85)}
+
+/* SKILLS */
+#skills{background:var(--bg);border-top:1px solid var(--line)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+.skblock{background:var(--card);padding:1.6rem 1.8rem}
+.skblock-title{font-size:10.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:1px solid var(--line)}
+.sk-pills{display:flex;flex-wrap:wrap;gap:6px}
+.sk-pill{font-size:12px;padding:4px 11px;background:#f0ede7;color:var(--ink);transition:all 0.15s;cursor:default}
+.sk-pill:hover{background:var(--ink);color:var(--bg)}
+.sk-pill.key{background:rgba(191,74,37,0.09);color:var(--red);border:1px solid rgba(191,74,37,0.25)}
+
+/* INDIA */
+#india{background:#f2efe9;border-top:1px solid var(--line)}
+.india-intro{font-size:15px;color:var(--ink);line-height:1.85;max-width:740px;margin-bottom:2.5rem}
+.india-intro strong{color:var(--red)}
+.india-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+.icard{background:var(--card);padding:1.6rem 1.8rem;position:relative;overflow:hidden;transition:transform 0.2s}
+.icard:hover{transform:translateY(-2px)}
+.icard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.icard:hover::after{transform:scaleX(1)}
+.icard-n{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:rgba(20,20,20,0.06);line-height:1;margin-bottom:-0.5rem}
+.icard-title{font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:0.4rem}
+.icard-body{font-size:12.5px;color:var(--muted);line-height:1.7}
+
+/* AI EDGE */
+#ai{background:#0d1a12;border-top:1px solid rgba(255,255,255,0.05)}
+#ai .sec-tag{color:#4caf7d}
+#ai .sec-tag::before{background:#4caf7d}
+#ai .sec-h{color:#edf7f1}
+#ai .sec-h em{color:#4caf7d}
+#ai .sec-sub{color:rgba(237,247,241,0.55)}
+.ai-intro{font-size:14.5px;color:rgba(237,247,241,0.7);line-height:1.85;max-width:680px;margin-bottom:2.5rem}
+.ai-intro strong{color:#edf7f1}
+.ai-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,0.05)}
+.acard{background:rgba(255,255,255,0.025);padding:1.8rem 2rem;border:1px solid rgba(255,255,255,0.05)}
+.acard-head{display:flex;align-items:center;gap:10px;margin-bottom:0.7rem}
+.acard-icon{font-size:1.1rem}
+.acard-title{font-size:14px;font-weight:600;color:#edf7f1}
+.acard-body{font-size:13px;color:rgba(237,247,241,0.6);line-height:1.75;margin-bottom:0.8rem}
+.acard-stat{font-size:12px;font-weight:600;color:#4caf7d;padding:6px 10px;background:rgba(76,175,125,0.1);display:inline-block}
+
+/* CONTACT FOOTER */
+#contact{background:var(--ink);border-top:1px solid rgba(255,255,255,0.06);padding:3rem 2.5rem}
+.contact-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.contact-left .contact-name{font-family:'Playfair Display',serif;font-size:1.5rem;color:#f0ede7;margin-bottom:0.3rem}
+.contact-left .contact-role{font-size:12.5px;color:rgba(240,237,231,0.45);letter-spacing:0.04em}
+.contact-right{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.contact-item{font-size:13px;color:rgba(240,237,231,0.6);display:flex;align-items:center;gap:6px}
+.contact-item a{color:#c8922a;text-decoration:none}
+.contact-item a:hover{color:#f0ede7}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.on{opacity:1;transform:none}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--line)}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  nav{padding:0 1.2rem}
+  .nav-menu{display:none}
+  .nav-hamburger{display:flex}
+  #hero{grid-template-columns:1fr}
+  .hero-r{display:none}
+  .story-grid,.cpane.active,.fit-grid,.skills-grid,.india-grid,.ai-grid,.numbers-grid{grid-template-columns:1fr}
+  .exp-item{grid-template-columns:1fr;gap:0.8rem}
+  .exp-wins{grid-template-columns:1fr}
+  .sec{padding:3rem 1.3rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#hero">Niranjana Kannan</a>
+  <ul class="nav-menu">
+    <li><a href="#story">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#campaigns">Campaigns</a></li>
+    <li><a href="#fit">JD Fit</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#ai">AI Edge</a></li>
+    <li><a href="#india">India Expertise</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#story">About</a>
+  <a href="#experience">Experience</a>
+  <a href="#campaigns">Campaigns</a>
+  <a href="#fit">JD Fit</a>
+  <a href="#skills">Skills</a>
+  <a href="#ai">AI Edge</a>
+  <a href="#india">India Expertise</a>
+</div>
+
+<div class="page">
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-l">
+    <div class="hero-eyebrow">Consumer &amp; Product Marketing Leader · India</div>
+    <h1 class="hero-name">Niranjana<br><em>Kannan</em></h1>
+    <div class="hero-role">10+ Years &nbsp;·&nbsp; ATL / BTL / Digital &nbsp;·&nbsp; Subscriptions &nbsp;·&nbsp; AI Marketing</div>
+    <p class="hero-story">
+      I build brands that <strong>actually connect with Indian consumers</strong> — from large-scale TV and OOH campaigns to hyper-localised digital campaigns for Tier-2 cities. I've grown subscription bases, launched products, and marketed AI features across consumer and SaaS brands. My work is rooted in <strong>deep India market knowledge</strong>, not just strategy on a slide.
+    </p>
+    <div class="hero-chips">
+      <span class="chip hot">Consumer Marketing</span>
+      <span class="chip hot">Subscription Growth</span>
+      <span class="chip hot">India Market Expert</span>
+      <span class="chip">ATL / BTL / Digital</span>
+      <span class="chip">Social-First Campaigns</span>
+      <span class="chip">ASO</span>
+      <span class="chip">AEO · GEO</span>
+      <span class="chip">GTM Strategy</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#experience" class="btn btn-dark nav-scroll">See My Work</a>
+      <a href="#fit" class="btn btn-line nav-scroll">JD Fit →</a>
+    </div>
+  </div>
+  <div class="hero-r">
+    <div class="hero-r-label">Impact at a glance</div>
+    <div class="mcard"><div class="mnum">30%</div><div><div class="mlabel">YoY Subscriber Growth</div><div class="msub">Full-funnel organic strategy, India</div></div></div>
+    <div class="mcard"><div class="mnum">34%</div><div><div class="mlabel">Feature Engagement Lift</div><div class="msub">AI-powered product campaigns</div></div></div>
+    <div class="mcard"><div class="mnum">25%</div><div><div class="mlabel">Qualified Acquisition Lift</div><div class="msub">A/B testing + persona pages</div></div></div>
+    <div class="mcard"><div class="mnum">20%</div><div><div class="mlabel">Conversion Improvement</div><div class="msub">GTM positioning + competitive analysis</div></div></div>
+    <div class="mcard"><div class="mnum">71%</div><div><div class="mlabel">Faster Reporting via AI</div><div class="msub">7 days → 2 days turnaround</div></div></div>
+    <div class="mcard"><div class="mnum">10+</div><div><div class="mlabel">Product Launches Led</div><div class="msub">End-to-end GTM ownership</div></div></div>
+  </div>
+</section>
+
+<!-- ABOUT / STORY -->
+<section id="story" class="sec">
+  <div class="sec-inner">
+    <div class="story-grid">
+      <div>
+        <div class="sec-tag reveal">About Me</div>
+        <h2 class="sec-h reveal">A marketer who knows<br>India from the <em>inside</em></h2>
+        <div class="story-body reveal">
+          <p>I started my career at <strong>Lowe Lintas</strong> — one of India's most respected advertising agencies — where I learned how great campaigns are built from a deep understanding of people, not just demographics. That foundation of <span class="hl">cultural intelligence and storytelling</span> has shaped everything since.</p>
+          <p>Over the next decade, I worked across agencies and brands — building 360° campaigns for <strong>Taneira by Titan, Amazon India, and TI Cycles</strong> — before moving into product marketing at <strong>Zoho Corporation</strong>, where I've been driving subscription growth and product adoption across the India market.</p>
+          <p>At Zoho, I led app marketing for <strong>Zoho Show and WorkDrive</strong> (including ASO strategy), ran hyper-localised campaigns across metros and Tier-2 cities, and marketed AI-powered product features to real users. I'm also an early practitioner of <span class="hl">AEO and GEO</span> — optimising content for AI-powered search, a discipline almost no marketer in India is actively working on yet.</p>
+          <p>What makes me different: I don't just execute campaigns. I <strong>represent India's voice internally</strong> — pushing for locally relevant messaging, regional creative, and culturally grounded strategy that respects how Indian consumers actually think.</p>
+        </div>
+      </div>
+      <div class="story-sidebar reveal">
+        <div class="srow"><div class="srow-label">Current Role</div><div class="srow-val">Senior Product &amp; Growth Marketing Manager<br><span>Zoho Corporation · Feb 2021 – Present</span></div></div>
+        <div class="srow"><div class="srow-label">Location</div><div class="srow-val">Chennai &nbsp;·&nbsp; Open to Delhi · Mumbai · Bangalore</div></div>
+        <div class="srow"><div class="srow-label">Brands Worked With</div><div class="srow-val">Amazon India · Taneira by Titan<br>TI Cycles · Zoho Suite</div></div>
+        <div class="srow"><div class="srow-label">Agency Background</div><div class="srow-val">Lowe Lintas · Spinta Digital · KRDS<br><span>3 agencies · 4 years</span></div></div>
+        <div class="srow"><div class="srow-label">Education</div><div class="srow-val">MA, Media Communication<br><span>MOP Vaishnav College · 2012–2014</span></div></div>
+        <div class="srow"><div class="srow-label">Contact</div><div class="srow-val">niranjkkn92@gmail.com<br>+91 98406 55381</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEY NUMBERS -->
+<section id="numbers" class="sec" style="padding-top:0;padding-bottom:0">
+  <div class="sec-inner">
+    <div class="numbers-grid reveal">
+      <div class="ncard"><div class="ncard-num">30%</div><div class="ncard-label">YoY Subscriber Growth</div><div class="ncard-sub">Full-funnel organic strategy combining content, SEO, social, and brand positioning</div></div>
+      <div class="ncard"><div class="ncard-num">34%</div><div class="ncard-label">Feature Engagement Lift</div><div class="ncard-sub">AI-powered features marketed via in-app messaging, email journeys, and social content</div></div>
+      <div class="ncard"><div class="ncard-num">25%</div><div class="ncard-label">Qualified Acquisition Lift</div><div class="ncard-sub">Persona-focused landing pages and A/B-tested messaging. Top-3 for 8 priority keywords</div></div>
+      <div class="ncard"><div class="ncard-num">20%</div><div class="ncard-label">Conversion Rate Improvement</div><div class="ncard-sub">GTM positioning, competitive analysis, and cross-channel coordination for 10+ launches</div></div>
+      <div class="ncard"><div class="ncard-num">15%</div><div class="ncard-label">Subscription Retention Gain</div><div class="ncard-sub">Proactive onboarding, customer education, and lifecycle campaigns reduced churn</div></div>
+      <div class="ncard"><div class="ncard-num">71%</div><div class="ncard-label">Faster Reporting via AI</div><div class="ncard-sub">AI automation cut monthly competitive intelligence reports from 7 days to 2 days</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="sec">
+  <div class="sec-inner">
+    <div class="sec-tag reveal">Career Story</div>
+    <h2 class="sec-h reveal">10 years. 4 companies.<br>One consistent <em>thread.</em></h2>
+    <p class="sec-sub reveal">Every role built on the last — from learning to tell stories at India's top agency, to executing multi-crore brand campaigns, to now driving subscription growth at scale.</p>
+    <div class="exp-timeline">
+
+      <div class="exp-item reveal">
+        <div class="exp-left">
+          <div class="exp-period">Feb 2021 – Present</div>
+          <div class="exp-co">Zoho Corporation</div>
+          <div class="exp-role">Sr. Product &amp; Growth Marketing Manager</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-story">At Zoho, I own the full marketing lifecycle for consumer-facing products in India — from brand awareness to subscriber retention. I led app marketing for <strong>Zoho Show</strong> (presentation app) and <strong>Zoho WorkDrive</strong> (cloud storage), running ASO strategy, seasonal campaigns, and free-to-paid conversion programs. Think of WorkDrive like Google One — same category, same challenge: convincing users the paid plan is worth it. I've also led 10+ product launches end-to-end, including AI-powered features where I had to translate complex technology into simple, compelling value for everyday users.</div>
+          <div class="exp-wins">
+            <div class="win"><div class="win-num">30% YoY</div><div class="win-label">Subscriber growth</div></div>
+            <div class="win"><div class="win-num">34%</div><div class="win-label">Feature engagement lift</div></div>
+            <div class="win"><div class="win-num">25%</div><div class="win-label">Qualified acquisition lift</div></div>
+            <div class="win"><div class="win-num">71%</div><div class="win-label">Faster via AI automation</div></div>
+          </div>
+          <div class="exp-tags"><span class="etag">Subscription Marketing</span><span class="etag">ASO</span><span class="etag">ATL · BTL · Digital</span><span class="etag">Social-First</span><span class="etag">AEO · GEO</span><span class="etag">Product Launches</span><span class="etag">AI Automation</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-left">
+          <div class="exp-period">Jul 2019 – Aug 2020</div>
+          <div class="exp-co">KRDS Digital Agency</div>
+          <div class="exp-role">Account Manager · Consumer &amp; Lifestyle Brands</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-story">At KRDS, I managed digital-first campaigns for <strong>Amazon India</strong> — the festive season and Prime Day activations that drive the biggest sales peaks of the year. I coordinated across content, paid media, and influencer teams to deliver campaigns that worked both in metros and smaller cities, ensuring the messaging felt relevant whether someone was in Mumbai or Mysore.</div>
+          <div class="exp-tags"><span class="etag">Amazon India</span><span class="etag">Seasonal Campaigns</span><span class="etag">ATL · BTL Activations</span><span class="etag">Influencer Marketing</span><span class="etag">Paid Media</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-left">
+          <div class="exp-period">Apr 2016 – Jun 2019</div>
+          <div class="exp-co">Spinta Digital</div>
+          <div class="exp-role">Brand Manager · Integrated Marketing</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-story">Three years of some of the most culturally rich campaigns I've worked on. For <strong>Taneira by Titan</strong>, I built the brand's identity from the ground up — helping urban Indian women reconnect with the art of handloom through integrated ATL campaigns across TV, OOH, PR, digital, influencer, and experiential events. For <strong>TI Cycles (Murugappa Group)</strong>, I ran regional product launches that worked for both national and Tier-2 audiences — real Bharat marketing, not just translated metro content.</div>
+          <div class="exp-tags"><span class="etag">Taneira by Titan</span><span class="etag">TI Cycles</span><span class="etag">ATL · BTL</span><span class="etag">OOH · PR</span><span class="etag">Influencer</span><span class="etag">Regional Campaigns</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-left">
+          <div class="exp-period">Aug 2015 – Feb 2016</div>
+          <div class="exp-co">Lowe Lintas</div>
+          <div class="exp-role">Project Consultant</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-story">My starting point — and one of the best classrooms a marketer can have. Lowe Lintas taught me how to think about consumers before thinking about campaigns. I supported large-scale ATL campaigns for national clients, learning from senior strategists how to translate a cultural truth into a mass-media idea. The discipline and deep respect for the Indian consumer that I practice today started here.</div>
+          <div class="exp-tags"><span class="etag">ATL Campaigns</span><span class="etag">Market Research</span><span class="etag">Competitive Analysis</span><span class="etag">Brand Strategy</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CAMPAIGNS -->
+<section id="campaigns" class="sec">
+  <div class="sec-inner">
+    <div class="sec-tag reveal">Campaign Work</div>
+    <h2 class="sec-h reveal">Brands I've built<br>campaigns <em>for</em></h2>
+    <p class="sec-sub reveal">Select a brand to see the campaign approach, channels used, and outcomes.</p>
+    <div class="camp-tabs reveal">
+      <button class="ctab active" data-camp="zoho">Zoho Suite</button>
+      <button class="ctab" data-camp="amazon">Amazon India</button>
+      <button class="ctab" data-camp="taneira">Taneira by Titan</button>
+      <button class="ctab" data-camp="ticycles">TI Cycles</button>
+    </div>
+    <div class="camp-body">
+
+      <div class="cpane active" id="cp-zoho">
+        <div>
+          <div class="cp-brand">Zoho Suite</div>
+          <div class="cp-meta">Zoho Corporation · 2021–Present · App &amp; Subscription Growth</div>
+          <div class="cp-story">Led subscription and app growth marketing for <strong>Zoho Show</strong> and <strong>Zoho WorkDrive</strong> — consumer-facing productivity apps with free and paid subscription tiers. Ran ASO to improve organic discoverability on App Store and Play Store, executed seasonal campaigns and lifecycle programs to convert free users to paid. Also led 10+ product feature launches end-to-end and pioneered AEO/GEO content strategies for brand visibility in AI-driven search.</div>
+          <div class="cp-channels"><span class="cch">ASO</span><span class="cch">SEO · Content</span><span class="cch">Paid Social</span><span class="cch">Paid Search</span><span class="cch">In-App Messaging</span><span class="cch">Email Journeys</span><span class="cch">Webinars</span><span class="cch">Field Events</span><span class="cch">AEO · GEO</span></div>
+          <div class="cp-metrics">
+            <div class="cmet"><div class="cmet-n">30%</div><div class="cmet-l">YoY subscriber growth</div></div>
+            <div class="cmet"><div class="cmet-n">34%</div><div class="cmet-l">Feature engagement lift</div></div>
+            <div class="cmet"><div class="cmet-n">25%</div><div class="cmet-l">Qualified acquisition lift</div></div>
+            <div class="cmet"><div class="cmet-n">71%</div><div class="cmet-l">Faster reporting via AI</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="cp-approach-label">How I approached this</div>
+          <div class="cp-steps">
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>User insight first</strong> — analysed funnel drop-offs, ran VOC interviews, and used competitive data to find messaging gaps</div></div>
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>ASO strategy</strong> — optimised keywords, screenshots, and ratings for Zoho Show and WorkDrive to grow organic app downloads</div></div>
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>Hyper-localised 360° campaigns</strong> — region-specific creative for metro and Tier-2 India across ATL, BTL, and digital</div></div>
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>AI feature launches</strong> — translated complex AI features into simple user benefits; drove 34% engagement increase</div></div>
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>AEO / GEO content</strong> — building content so the brand appears in ChatGPT, Perplexity, and Google AI Overviews</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cpane" id="cp-amazon">
+        <div>
+          <div class="cp-brand">Amazon India</div>
+          <div class="cp-meta">KRDS Digital Agency · 2019–2020 · Seasonal &amp; App Campaigns</div>
+          <div class="cp-story">Managed integrated digital campaigns for <strong>Amazon India</strong> — India's largest e-commerce platform. Led festive season and <strong>Prime Day activations</strong>: the highest-stakes, highest-budget campaigns of the year. Coordinated content, paid media, and influencer distribution to drive app traffic, product discovery, and sales across millions of users — in days.</div>
+          <div class="cp-channels"><span class="cch">ATL Activations</span><span class="cch">Paid Media</span><span class="cch">Influencer</span><span class="cch">Content Strategy</span><span class="cch">App Traffic</span><span class="cch">Social-First Content</span></div>
+          <div class="cp-metrics">
+            <div class="cmet"><div class="cmet-n">360°</div><div class="cmet-l">Full channel integration</div></div>
+            <div class="cmet"><div class="cmet-n">Peak</div><div class="cmet-l">Festive + Prime Day campaigns</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="cp-approach-label">How I approached this</div>
+          <div class="cp-steps">
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>Seasonal strategy</strong> — built campaign calendars around India's festive moments with a clear user journey</div></div>
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>Multi-channel coordination</strong> — managed content, paid media, and influencer teams working simultaneously</div></div>
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>Metro + Tier-2 relevance</strong> — campaign messaging felt culturally resonant across urban and smaller city audiences</div></div>
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>App-first focus</strong> — drove app traffic and product discovery as core KPIs, not just brand awareness</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cpane" id="cp-taneira">
+        <div>
+          <div class="cp-brand">Taneira by Titan</div>
+          <div class="cp-meta">Spinta Digital · 2016–2019 · Brand Building · 360° ATL/BTL</div>
+          <div class="cp-story">Built brand identity and ran integrated 360° campaigns for <strong>Taneira by Titan</strong> — a handloom sarees brand by the Tata Group, positioning it as the destination for urban Indian women who value authentic craftsmanship. Full channel spectrum: TV, OOH, PR, digital, influencer partnerships, and in-store experiential events across metro markets.</div>
+          <div class="cp-channels"><span class="cch">TV · Mass Media</span><span class="cch">OOH</span><span class="cch">PR</span><span class="cch">Digital</span><span class="cch">Influencer</span><span class="cch">Experiential</span><span class="cch">Social</span></div>
+          <div class="cp-metrics">
+            <div class="cmet"><div class="cmet-n">360°</div><div class="cmet-l">Full ATL + BTL integration</div></div>
+            <div class="cmet"><div class="cmet-n">Metro</div><div class="cmet-l">Multi-city execution</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="cp-approach-label">How I approached this</div>
+          <div class="cp-steps">
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>Audience insight</strong> — messaging framework built around urban Indian women who want to celebrate heritage in a modern way</div></div>
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>ATL campaigns</strong> — TV and OOH for national reach; PR strategy for editorial credibility in lifestyle media</div></div>
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>Influencer strategy</strong> — partnered with fashion and culture creators whose audiences matched Taneira's target profile</div></div>
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>Experiential events</strong> — in-store events that let customers experience the craft, driving brand love and purchase intent</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cpane" id="cp-ticycles">
+        <div>
+          <div class="cp-brand">TI Cycles</div>
+          <div class="cp-meta">Spinta Digital + Lowe Lintas · Bharat + Metro Campaigns</div>
+          <div class="cp-story">Ran product launches and regional BTL campaigns for <strong>TI Cycles (Murugappa Group)</strong> — one of India's largest cycle manufacturers. The key challenge: real Bharat marketing — campaigns that work in Tier-2 cities, in regional languages, through local media. Not just translated metro content. This is where I built my deepest understanding of how India's non-metro consumer actually thinks.</div>
+          <div class="cp-channels"><span class="cch">BTL Campaigns</span><span class="cch">Regional Media</span><span class="cch">PR</span><span class="cch">Social-First Content</span><span class="cch">Product Launches</span></div>
+          <div class="cp-metrics">
+            <div class="cmet"><div class="cmet-n">Bharat</div><div class="cmet-l">+ Metro coverage</div></div>
+            <div class="cmet"><div class="cmet-n">Multi</div><div class="cmet-l">Regional adaptations</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="cp-approach-label">How I approached this</div>
+          <div class="cp-steps">
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>Bharat-first thinking</strong> — distinct messaging for Tier-2 audiences, not translations of metro campaigns</div></div>
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>Product launch playbooks</strong> — end-to-end launch campaigns across creative, media, and PR teams</div></div>
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>Cultural storytelling</strong> — narratives rooted in Indian cycling culture and everyday consumer behaviour</div></div>
+            <div class="cp-step"><div class="cp-step-dot"></div><div class="cp-step-text"><strong>Cross-agency coordination</strong> — managed creative, media, and PR teams to deliver on time and on budget</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- JD FIT -->
+<section id="fit" class="sec">
+  <div class="sec-inner">
+    <div class="sec-tag reveal">Role Alignment</div>
+    <h2 class="sec-h reveal">How I match what<br>you're <em>hiring for</em></h2>
+    <p class="sec-sub reveal">Mapped against the OpenAI (Consumer Marketing Manager, India) and Google (PMM, Subscriptions &amp; Consumer Growth) job descriptions.</p>
+    <div class="fit-grid reveal">
+      <div class="fcard">
+        <div class="fcard-head"><span class="fcard-title">India Market Representation</span><span class="fcard-pct">95%</span></div>
+        <div class="fcard-bar"><div class="fcard-fill" data-w="95"></div></div>
+        <div class="fcard-body">Deep Bharat vs metro knowledge, regional media landscape, hyper-localisation — built over 10 years. <strong>Both JDs explicitly ask for someone to "represent India's voice" internally.</strong></div>
+      </div>
+      <div class="fcard">
+        <div class="fcard-head"><span class="fcard-title">Integrated ATL / BTL / Digital</span><span class="fcard-pct">93%</span></div>
+        <div class="fcard-bar"><div class="fcard-fill" data-w="93"></div></div>
+        <div class="fcard-body">360° campaigns across TV, OOH, PR, digital, influencer, and experiential for Taneira, Amazon India, TI Cycles, and Zoho. <strong>Minimum qualification on both JDs.</strong></div>
+      </div>
+      <div class="fcard">
+        <div class="fcard-head"><span class="fcard-title">Subscription &amp; App Growth</span><span class="fcard-pct">88%</span></div>
+        <div class="fcard-bar"><div class="fcard-fill" data-w="88"></div></div>
+        <div class="fcard-body">Led app subscription marketing for Zoho Show and WorkDrive — ASO, free-to-paid conversion, lifecycle campaigns. <strong>WorkDrive is cloud storage — directly analogous to Google One.</strong></div>
+      </div>
+      <div class="fcard">
+        <div class="fcard-head"><span class="fcard-title">Consumer Product Launches</span><span class="fcard-pct">90%</span></div>
+        <div class="fcard-bar"><div class="fcard-fill" data-w="90"></div></div>
+        <div class="fcard-body">10+ product and feature launches end-to-end at Zoho — positioning, value proposition, campaign creative, cross-channel coordination. <strong>20% conversion rate improvement.</strong></div>
+      </div>
+      <div class="fcard">
+        <div class="fcard-head"><span class="fcard-title">User Insights &amp; Strategy</span><span class="fcard-pct">82%</span></div>
+        <div class="fcard-bar"><div class="fcard-fill" data-w="82"></div></div>
+        <div class="fcard-body">Funnel data, VOC research, competitive intelligence, and A/B testing translated into positioning and campaign strategy. <strong>Google JD asks for "incisive insights that generate buy-in from engineering and BD."</strong></div>
+      </div>
+      <div class="fcard">
+        <div class="fcard-head"><span class="fcard-title">AI Marketing &amp; Discoverability</span><span class="fcard-pct">90%</span></div>
+        <div class="fcard-bar"><div class="fcard-fill" data-w="90"></div></div>
+        <div class="fcard-body">Active AEO and GEO practitioner. Marketed AI-powered product features to real users. Used AI automation to reduce reporting by 71%. <strong>Rare differentiator for both roles.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="sec">
+  <div class="sec-inner">
+    <div class="sec-tag reveal">Core Competencies</div>
+    <h2 class="sec-h reveal">What I <em>actually</em> do</h2>
+    <div class="skills-grid reveal">
+      <div class="skblock">
+        <div class="skblock-title">Consumer &amp; Product Marketing</div>
+        <div class="sk-pills"><span class="sk-pill key">ATL / BTL / Digital</span><span class="sk-pill key">Social-First Campaigns</span><span class="sk-pill key">Subscription Growth</span><span class="sk-pill key">App Marketing · ASO</span><span class="sk-pill">Feature Launches</span><span class="sk-pill">Influencer Programs</span><span class="sk-pill">Experiential</span><span class="sk-pill">Brand Building</span></div>
+      </div>
+      <div class="skblock">
+        <div class="skblock-title">India Market</div>
+        <div class="sk-pills"><span class="sk-pill key">Hyper-Localisation</span><span class="sk-pill key">Bharat vs Metro</span><span class="sk-pill key">Regional Media Landscape</span><span class="sk-pill">Consumer App Ecosystem</span><span class="sk-pill">Cultural Insight</span><span class="sk-pill">Tier-2 / 3 Markets</span></div>
+      </div>
+      <div class="skblock">
+        <div class="skblock-title">Growth &amp; Performance</div>
+        <div class="sk-pills"><span class="sk-pill key">Acquisition</span><span class="sk-pill key">Retention</span><span class="sk-pill">A/B Testing</span><span class="sk-pill">Funnel Optimisation</span><span class="sk-pill">Campaign Measurement</span><span class="sk-pill">SEO</span><span class="sk-pill">Landing Page CRO</span></div>
+      </div>
+      <div class="skblock">
+        <div class="skblock-title">AI &amp; Discoverability</div>
+        <div class="sk-pills"><span class="sk-pill key">AEO</span><span class="sk-pill key">GEO</span><span class="sk-pill key">AI Feature Marketing</span><span class="sk-pill">Marketing Automation</span><span class="sk-pill">LLM-Optimised Content</span><span class="sk-pill">Prompt Engineering</span></div>
+      </div>
+      <div class="skblock">
+        <div class="skblock-title">GTM &amp; Product</div>
+        <div class="sk-pills"><span class="sk-pill">Launch Strategy</span><span class="sk-pill">ICP Mapping</span><span class="sk-pill">Messaging Frameworks</span><span class="sk-pill">Value Propositions</span><span class="sk-pill">Competitive Analysis</span><span class="sk-pill">ABM</span><span class="sk-pill">Sales Enablement</span></div>
+      </div>
+      <div class="skblock">
+        <div class="skblock-title">Tools</div>
+        <div class="sk-pills"><span class="sk-pill">HubSpot</span><span class="sk-pill">GA4</span><span class="sk-pill">Ahrefs</span><span class="sk-pill">SEMrush</span><span class="sk-pill">Zoho Suite</span><span class="sk-pill">MailChimp</span><span class="sk-pill">Sprout Social</span><span class="sk-pill">Canva</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDIA EXPERTISE -->
+<section id="india" class="sec">
+  <div class="sec-inner">
+    <div class="sec-tag reveal">India Expertise</div>
+    <h2 class="sec-h reveal">I don't just know India.<br>I <em>market in it.</em></h2>
+    <p class="india-intro reveal">Understanding India as a market means understanding <strong>many Indias</strong>. A campaign that works in South Mumbai will fail in Patna. A message that lands in English won't resonate in Tamil. I've been navigating this complexity for 10 years — building campaigns that work across the full spectrum, from premium metro audiences to Bharat consumers discovering a brand for the first time.</p>
+    <div class="india-grid reveal">
+      <div class="icard"><div class="icard-n">01</div><div class="icard-title">Bharat vs Metro — Real Campaigns, Not Theory</div><div class="icard-body">I've actually run separate creative and messaging for Bharat and metro audiences. For TI Cycles, this meant distinct regional campaigns. For Zoho, it meant hyper-localised digital creative for different states. The insight always starts with the user, not the brief.</div></div>
+      <div class="icard"><div class="icard-n">02</div><div class="icard-title">Cultural Depth in Campaigns</div><div class="icard-body">Building Taneira's brand identity taught me how to use cultural truth as a campaign foundation — not a surface-level reference. From festive timing to regional identity to the role of craft in modern Indian life.</div></div>
+      <div class="icard"><div class="icard-n">03</div><div class="icard-title">Agency Network Across Delhi, Mumbai, Bangalore</div><div class="icard-body">Ten years working across agencies and brands means I know the creative studios, media buyers, production houses, and PR agencies that deliver. I know who to trust, who works fast, and who understands specific audience segments.</div></div>
+      <div class="icard"><div class="icard-n">04</div><div class="icard-title">India's Real Media Landscape</div><div class="icard-body">I understand where Indian users actually spend time — OTT, YouTube, Instagram Reels, WhatsApp, regional language platforms — and how to reach them cost-effectively. Not just the obvious channels, but the ones that actually work by geography and demographic.</div></div>
+      <div class="icard"><div class="icard-n">05</div><div class="icard-title">App Behaviour in the Indian Ecosystem</div><div class="icard-body">Ran ASO for Zoho Show and WorkDrive — learning how Indian users discover and download apps differently from Western markets. Price sensitivity, regional language behaviour, and seasonal download patterns are all distinct here.</div></div>
+      <div class="icard"><div class="icard-n">06</div><div class="icard-title">Being India's Voice Internally</div><div class="icard-body">At Zoho, I've pushed back on global templates that don't work for Indian users and championed market-specific messaging, localised creative, and India-appropriate campaign calendars. I know how to advocate for the local market within a larger organisation — diplomatically, but firmly.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- AI EDGE -->
+<section id="ai" class="sec">
+  <div class="sec-inner">
+    <div class="sec-tag reveal">The AI Edge</div>
+    <h2 class="sec-h reveal" style="color:#edf7f1">I use AI to market better.<br>Not just <em>talk about it.</em></h2>
+    <p class="ai-intro reveal">Most marketers talk about AI. I've actually deployed it — to <strong>cut reporting time by 71%</strong>, to build content strategies optimised for AI-powered search, and to market complex AI features to everyday users. For roles at OpenAI or Google where AI is the product, this is a genuine differentiator.</p>
+    <div class="ai-grid reveal">
+      <div class="acard">
+        <div class="acard-head"><span class="acard-icon">⚡</span><span class="acard-title">Marketing Automation</span></div>
+        <div class="acard-body">I automated critical but repetitive tasks — monthly competitive intelligence reports, industry landscape briefs, and performance summaries — using AI tools. This freed up strategic bandwidth for higher-impact work like campaign ideation and stakeholder communication.</div>
+        <div class="acard-stat">71% faster · 7 days → 2 days per report cycle</div>
+      </div>
+      <div class="acard">
+        <div class="acard-head"><span class="acard-icon">🔍</span><span class="acard-title">AEO — Answer Engine Optimisation</span></div>
+        <div class="acard-body">Building content architectures designed to surface in AI-powered answer engines — not just Google Search. When someone asks ChatGPT or Perplexity a question, I want the brand to be the answer. A discipline almost no marketer in India is actively practising yet.</div>
+        <div class="acard-stat">Pioneering practitioner · Content optimised for LLM citation</div>
+      </div>
+      <div class="acard">
+        <div class="acard-head"><span class="acard-icon">🌐</span><span class="acard-title">GEO — Generative Engine Optimisation</span></div>
+        <div class="acard-body">Where AEO is about question-answering, GEO is about brand visibility in the broader generative AI content ecosystem. I'm building strategies so the brand surfaces naturally when LLMs generate content in our category — ahead of the industry adoption curve.</div>
+        <div class="acard-stat">Forward-looking · Ahead of India market adoption</div>
+      </div>
+      <div class="acard">
+        <div class="acard-head"><span class="acard-icon">🚀</span><span class="acard-title">Marketing AI-Powered Product Features</span></div>
+        <div class="acard-body">At Zoho, I've marketed AI-powered features to real, everyday users — translating complex technical capabilities into simple, compelling value propositions. Exactly the challenge for Google Photos AI or OpenAI's consumer products. I know how to make AI feel useful and human.</div>
+        <div class="acard-stat">34% feature engagement increase · AI product campaigns</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT FOOTER -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <div class="contact-name">Niranjana Kannan</div>
+      <div class="contact-role">Senior Product &amp; Growth Marketing Manager · Chennai, India</div>
+    </div>
+    <div class="contact-right">
+      <div class="contact-item">✉ <a href="mailto:niranjkkn92@gmail.com">niranjkkn92@gmail.com</a></div>
+      <div class="contact-item">📞 <a href="tel:+919840655381">+91 98406 55381</a></div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<script>
+(function() {
+
+  // ─── SMOOTH SCROLL (all anchor links) ──────────────────────────────────────
+  function smoothScrollTo(targetId) {
+    var target = document.querySelector(targetId);
+    if (!target) return;
+    var offset = target.getBoundingClientRect().top + window.scrollY - 56;
+    window.scrollTo({ top: offset, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var href = this.getAttribute('href');
+      if (href && href.length > 1) {
+        e.preventDefault();
+        smoothScrollTo(href);
+        // Close mobile menu if open
+        var mob = document.getElementById('mobile-menu');
+        var ham = document.getElementById('hamburger');
+        if (mob && mob.classList.contains('open')) {
+          mob.classList.remove('open');
+          ham.classList.remove('open');
+        }
+      }
+    });
+  });
+
+  // ─── HAMBURGER MENU ────────────────────────────────────────────────────────
+  var hamburger = document.getElementById('hamburger');
+  var mobileMenu = document.getElementById('mobile-menu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', function() {
+      this.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+  }
+
+  // ─── ACTIVE NAV ON SCROLL ──────────────────────────────────────────────────
+  var secs = document.querySelectorAll('section[id]');
+  var navLinks = document.querySelectorAll('.nav-menu a');
+
+  function updateNav() {
+    var cur = '';
+    secs.forEach(function(s) {
+      if (s.getBoundingClientRect().top <= 70) cur = s.id;
+    });
+    navLinks.forEach(function(a) {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+    });
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // ─── CAMPAIGN TABS ─────────────────────────────────────────────────────────
+  var ctabs = document.querySelectorAll('.ctab');
+  var cpanes = document.querySelectorAll('.cpane');
+
+  ctabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var campId = this.getAttribute('data-camp');
+
+      // Deactivate all tabs and panes
+      ctabs.forEach(function(t) { t.classList.remove('active'); });
+      cpanes.forEach(function(p) { p.classList.remove('active'); });
+
+      // Activate clicked tab and matching pane
+      this.classList.add('active');
+      var pane = document.getElementById('cp-' + campId);
+      if (pane) pane.classList.add('active');
+    });
+  });
+
+  // ─── SCROLL REVEAL ─────────────────────────────────────────────────────────
+  var reveals = document.querySelectorAll('.reveal');
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e, i) {
+      if (e.isIntersecting) {
+        setTimeout(function() {
+          e.target.classList.add('on');
+        }, i * 55);
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+  reveals.forEach(function(el) { revealObserver.observe(el); });
+
+  // ─── JD BAR ANIMATION ──────────────────────────────────────────────────────
+  var bars = document.querySelectorAll('.fcard-fill');
+  var barObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.style.width = e.target.getAttribute('data-w') + '%';
+        barObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  bars.forEach(function(b) { barObserver.observe(b); });
+
+})();
+</script>
+</body>
+</html>
